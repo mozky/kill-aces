@@ -36,7 +36,7 @@ var Card = (function () {
             if (typeof this._owner === 'undefined')
                 this._owner = newOwner;
             else
-                console.error('This card already has an owner set');
+                console.error('error: This card already has an owner set');
         },
         enumerable: true,
         configurable: true
@@ -60,6 +60,21 @@ var Deck = (function () {
             }
         }
     }
+    // Returns global status of the deck
+    Deck.prototype.status = function () {
+        var free = [];
+        var drawn = [];
+        this._cards.map(function (card) {
+            if (card.owner != 'Nobody owns this card') {
+                drawn.push(card);
+            }
+            else {
+                free.push(card);
+            }
+        });
+        return 'Drawn: ' + drawn.length + ' Free: ' + free.length;
+    };
+    // Randomly? Shuffles the deck cards
     Deck.prototype.shuffle = function () {
         var currentIndex = this._cards.length, temporaryValue, randomIndex;
         // While there remain elements to shuffle...
@@ -73,6 +88,17 @@ var Deck = (function () {
             this._cards[randomIndex] = temporaryValue;
         }
     };
+    // Draws one card from top of the deck
+    // param: Player who draws the card
+    Deck.prototype.draw = function (newOwner) {
+        var card = this._cards[0];
+        if (card.owner == 'Nobody owns this card') {
+            card.owner = newOwner;
+        }
+        else {
+            console.error('error: This card already has an owner set');
+        }
+    };
     return Deck;
 }());
 var testCard = new Card(Suit.Spades, Face.Ace);
@@ -80,6 +106,9 @@ var testDeck = new Deck();
 console.log(testDeck._cards[0].getValue(), testDeck._cards[1].getValue());
 testDeck.shuffle();
 console.log(testDeck._cards[0].getValue(), testDeck._cards[1].getValue());
+console.log(testDeck.status());
+testDeck.draw('Javier');
+console.log(testDeck.status());
 console.log(testCard.owner);
 testCard.owner = 'Jown';
 console.log(testCard.owner);
