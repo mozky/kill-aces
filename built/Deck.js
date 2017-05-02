@@ -40,9 +40,9 @@ var Deck = (function () {
     // @boolean = true if open, false if closed
     Deck.prototype.draw = function (newOwner, open) {
         var card = this._cards.pop();
-        if (card.draw(newOwner, open)) {
+        if (card.draw(newOwner._username, open)) {
             this._drawn.push(card);
-            console.log('Giving ' + (open ? 'open ' : 'closed ') + card.getValue() + ' to ' + newOwner);
+            console.log('Giving ' + (open ? 'open ' : 'closed ') + card.getValue() + ' to ' + newOwner._username);
         }
         else {
             console.error('error: Unable to draw card for ' + newOwner);

@@ -43,7 +43,19 @@ export class Card {
     return true
   }
 
+  getPosition() {
+    return this._state
+  }
+
   getValue() {
-    return Face[this._face] +  ' of ' + Suit[this._suit];
+    return Face[this._face] +  ' of ' + Suit[this._suit]
+  }
+
+  getColor() {
+    return Suit[this._suit]
+  }
+
+  getFace() {
+    return Face[this._face]
   }
 }

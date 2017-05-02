@@ -1,4 +1,5 @@
 import { Card } from './Card'
+import { Player } from './Player'
 import { Suit, Face } from './Enums'
 
 export class Deck {
@@ -44,11 +45,11 @@ export class Deck {
   // Draws one card from the deck
   // @string = Who draws the card
   // @boolean = true if open, false if closed
-  draw(newOwner: string, open: boolean) {
+  draw(newOwner: Player, open: boolean) {
     var card: Card = this._cards.pop();
-    if (card.draw(newOwner, open)) {
+    if (card.draw(newOwner._username, open)) {
       this._drawn.push(card);
-      console.log('Giving ' + (open ? 'open ' : 'closed ') + card.getValue() + ' to ' + newOwner)
+      console.log('Giving ' + (open ? 'open ' : 'closed ') + card.getValue() + ' to ' + newOwner._username)
     } else {
       console.error('error: Unable to draw card for ' + newOwner)
     }

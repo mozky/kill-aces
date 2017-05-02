@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "lib": ["dom", "es2015.promise", "es5"],
         "outDir": "./built",
         "allowJs": true,
         "target": "es5"

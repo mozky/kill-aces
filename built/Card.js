@@ -38,8 +38,17 @@ var Card = (function () {
         }
         return true;
     };
+    Card.prototype.getPosition = function () {
+        return this._state;
+    };
     Card.prototype.getValue = function () {
         return Enums_1.Face[this._face] + ' of ' + Enums_1.Suit[this._suit];
+    };
+    Card.prototype.getColor = function () {
+        return Enums_1.Suit[this._suit];
+    };
+    Card.prototype.getFace = function () {
+        return Enums_1.Face[this._face];
     };
     return Card;
 }());

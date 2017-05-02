@@ -1,14 +1,29 @@
 import { Deck } from './Deck'
+import { Player } from './Player'
+import { Hand } from './Hand'
+import { getBestHand } from './CardUtils'
 
-let testDeck = new Deck();
+let testDeck = new Deck()
+let resultCounts = {}
 
-// Tests that the Deck is created and shuffled correctly
-console.log(testDeck._cards[0].getValue(), testDeck._cards[1].getValue());
-testDeck.shuffle();
-console.log(testDeck._cards[0].getValue(), testDeck._cards[1].getValue());
+let promises: Array<Promise<string>> = [];
+for (let i = 0; i <= 1000; i++){
+  promises[i] = getBestHand([testDeck._cards[0], testDeck._cards[1],testDeck._cards[2], testDeck._cards[3], testDeck._cards[4]])
+  testDeck.shuffle()
+  promises[i].then((res) => {
+    // console.log('Hand ' + [i], res)
+    resultCounts[res] = resultCounts[res] ? resultCounts[res] + 1 : 1
+    if (i == 1000)
+    console.log(resultCounts)
+  }).catch((err) => {
+    console.log('Catch 1', err)
+  })
+}
 
-// Sets two different cards to two players
-console.log(testDeck.status());
-testDeck.draw('Javier', true);
-testDeck.draw('Mark', false);
-console.log(testDeck.status());
+// let p1 = new Player('Javier')
+// let p2 = new Player('Mike')
+//
+// console.log(testDeck.status())
+// let testHand = new Hand([p1, p2], testDeck, p1)
+// testHand.dealCards()
+// console.log(testDeck.status())
